@@ -11,6 +11,10 @@ pipeline {
    }
    
    stages {
+          stage('PIPELINE-START') {
+               sh 'echo PIPELINE STARTED'
+               sh label: '', script: 'echo PIPELINE STARTED'
+          }
         // stage('GIT-Checkout') {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
