@@ -56,7 +56,7 @@ pipeline {
                     sh "docker login -u ${DOCKERHUBUNAME} -p ${DOCKERHUBPWD}"
     
                     }
-                     sh 'docker push vaheeddockerhub/my-app:1.0.0 .'
+                     sh 'docker push vaheeddockerhub/my-app:1.0.0'
                   }
                   
             }
