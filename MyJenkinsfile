@@ -4,7 +4,14 @@ pipeline {
     stage('SCM Checkout') {
        steps {
          git 'https://github.com/vaheedgithubac/Dummy-myweb'
-       }
-    }
+       } 
+    } // SCM Checkout
+    
+     stage('Maven Build') {
+        steps {
+           tool name: 'Maven-363', type: 'maven'
+           sh label: '', script: 'mvn clean install package'
+        } //Maven Build
+     }
  }
 }
