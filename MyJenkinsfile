@@ -1,10 +1,15 @@
-def mvnHome 
-def mvnCmd
+//def mvnHome 
+//def mvnCmd
 pipeline {
   agent any
-  options{
+  options {
         timestamps()
         }
+  environment {
+        //PATH = "/opt/maven3/bin:$PATH"
+        def mvnHome 
+        def mvnCmd
+    }
   stages {
     stage('SCM Checkout') {
        steps {
