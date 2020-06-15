@@ -57,9 +57,17 @@ pipeline {
     
                     }
                      sh 'docker push vaheeddockerhub/my-app:1.0.0'
-                  }
-                  
-            }
+                }
+           } // stage
+           
+           
+           stage('Run container on DEV-Server') {
+               steps{
+                  sshagent(['Tomcat-Server-Creds']) {
+                        sh 'docker run -d --name my-app-cont vaheeddockerhub/my-app:1.0.0 -p 8080:8080'
+                }
+             }
+           }
          
    }
    
