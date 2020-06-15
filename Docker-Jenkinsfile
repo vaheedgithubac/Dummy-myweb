@@ -59,14 +59,20 @@ pipeline {
            
            stage('Run container on DEV-Server') {
                steps{
+               
+                  def stopCont='docker stop my-app-cont'
+                  def delCont='sudo docker rm -f my-app-cont'
+                  def delImg='sudo docker image rm -f vaheeddockerhub/my-app:1.0.0'
+                  def creCont='docker run -d -p 8080:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0'
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
-                       ssh docker stop my-app-cont;
-                       ssh docker rm -f my-app-cont;
-                       ssh docker image rm -f vaheeddockerhub/my-app:1.0.0;
+                             ssh -o StrictHostKeyChecking=no ec2-user@172.31.36.253 ${stopCont}
+                             ssh ec2-user@172.31.36.253 ${delCont}
+                             ssh ec2-user@172.31.36.253 ${delImg}
+                             ssh sudo docker image rm -f vaheeddockerhub/my-app:1.0.0;
                        """
-                       sh 'docker run -d -p 8080:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0 '
+                      
                 }
              }
            }
