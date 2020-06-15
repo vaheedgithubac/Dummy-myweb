@@ -1,5 +1,9 @@
+def mvnHome mvnCmd
 pipeline {
   agent any
+  options{
+        timestamps()
+        }
   stages {
     stage('SCM Checkout') {
        steps {
@@ -10,10 +14,11 @@ pipeline {
      stage('Maven Build') {
         steps {
            script {
-           def mvnHome=tool name: 'Maven-363', type: 'maven'
-           def mvnCmd="${mvnHome}/bin/mvn"
+           mvnHome=tool name: 'Maven-363', type: 'maven'
+           //mvnCmd="${mvnHome}/bin/mvn"
            //sh "${mvnCmd} clean install package"
            }
+           mvnCmd="${mvnHome}/bin/mvn"
            sh "${mvnCmd} clean install package"
         } //Maven Build
      }
