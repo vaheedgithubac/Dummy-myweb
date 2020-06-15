@@ -7,7 +7,7 @@ pipeline {
         }
   environment {
         //PATH = "/opt/maven3/bin:$PATH"
-        def mvnHome = "Maven-363"
+        def mvnHome = "/opt/maven-3.6.3"
         def mvnCmd = "${mvnHome}/bin/mvn"
     }
   stages {
