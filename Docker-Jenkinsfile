@@ -35,15 +35,15 @@ pipeline {
    }
    
    post {
-    always {
+    //always {
 
-    }
-    success{
+    //}
+    //success{
 
-    }
-    failure {
+    //}
+    //failure {
 
-    }
+   // }
     cleanup{
         deleteDir()
     }
