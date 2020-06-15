@@ -44,8 +44,8 @@ pipeline {
     //failure {
 
    // }
-    cleanup{
-        deleteDir()
-    }
+    //cleanup{
+        //deleteDir()
+    //}
   }
 }
