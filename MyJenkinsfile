@@ -7,8 +7,8 @@ pipeline {
         }
   environment {
         //PATH = "/opt/maven3/bin:$PATH"
-        def mvnHome 
-        def mvnCmd
+        def mvnHome = "Maven-363"
+        def mvnCmd = "${mvnHome}/bin/mvn"
     }
   stages {
     stage('SCM Checkout') {
@@ -19,11 +19,11 @@ pipeline {
     
      stage('Maven Build') {
         steps {
-           script {
-           mvnHome=tool name: 'Maven-363', type: 'maven'
-           mvnCmd="${mvnHome}/bin/mvn"
+          // script {
+          // mvnHome=tool name: 'Maven-363', type: 'maven'
+          // mvnCmd="${mvnHome}/bin/mvn"
            //sh "${mvnCmd} clean install package"
-           }
+          // }
            //mvnCmd="${mvnHome}/bin/mvn"
            sh "${mvnCmd} clean install package"
         } //Maven Build
