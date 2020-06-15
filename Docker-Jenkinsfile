@@ -17,6 +17,7 @@ pipeline {
                        //sh label: '', script: 'echo PIPELINE STARTED'
              }
           }
+        
         // stage('GIT-Checkout') {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
