@@ -21,7 +21,7 @@ pipeline {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
       
-         dir('directoryToDelete') {
+         dir('') {
                     deleteDir()
             }
             
