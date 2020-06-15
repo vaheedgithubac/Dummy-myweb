@@ -13,7 +13,7 @@ pipeline {
    stages {
           stage('PIPELINE-START') {
                steps {
-                  sh 'echo PIPELINE STARTED'
+                  echo 'PIPELINE STARTED'
                   sh label: '', script: 'echo PIPELINE STARTED'
              }
           }
