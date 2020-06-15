@@ -14,7 +14,7 @@ pipeline {
           stage('PIPELINE-START') {
                steps {
                   echo 'PIPELINE STARTED'
-                  sh label: '', script: 'echo PIPELINE STARTED'
+                  //sh label: '', script: 'echo PIPELINE STARTED'
              }
           }
         // stage('GIT-Checkout') {
