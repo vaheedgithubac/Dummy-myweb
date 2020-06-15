@@ -34,7 +34,7 @@ pipeline {
          } // Maven-Build
    }
    
-   post {
+   //post {
     //always {
 
     //}
@@ -47,5 +47,5 @@ pipeline {
     //cleanup{
         //deleteDir()
     //}
-  }
+  //}
 }
