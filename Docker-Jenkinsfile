@@ -50,11 +50,14 @@ pipeline {
          stage('Push Docker Image to Docker Hub') {
             steps {
                   withCredentials([usernamePassword(credentialsId: 'DockerHub-Creds', 
-                                                    passwordVariable: 'DOCKERHUB-PASSWORD', 
-                                                    usernameVariable: 'DOCKERHUB-USERNAME')]) {
-                   sh 'docker login -u ${DOCKERHUB-USERNAME} -p ${DOCKERHUB-PASSWORD}'
+                                                    passwordVariable: 'GITHUB-PASSWORD', 
+                                                    usernameVariable: 'GITHUB-USERNAME')]) {
+                    sh "docker login -u ${DOCKERHUB-USERNAME} -p ${DOCKERHUB-PASSWORD}"
+    
+                    }
+                     sh 'docker push vaheeddockerhub/my-app:1.0.0 .'
                   }
-                  sh 'docker push vaheeddockerhub/my-app:1.0.0 .'
+                  
             }
          }
    }
