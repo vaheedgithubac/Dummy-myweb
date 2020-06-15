@@ -37,11 +37,7 @@ pipeline {
          
          stage('Build Docker Image') {
             steps {
-                  //sh '''
-                       //docker stop valaxy_demo;
-                       //docker rm -f valaxy_demo;
-                       //docker image rm -f valaxy_demo;
-                     //'''
+                  
                   sh 'docker build -t vaheeddockerhub/my-app:1.0.0 .'
             }
          }
@@ -64,7 +60,13 @@ pipeline {
            stage('Run container on DEV-Server') {
                steps{
                   sshagent(['Tomcat-Server-Creds']) {
-                        sh 'docker run -d -p 8080:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0 '
+                  
+                       sh """
+                       ssh docker stop my-app-cont;
+                       ssh docker rm -f my-app-cont;
+                       ssh docker image rm -f vaheeddockerhub/my-app:1.0.0;
+                       """
+                       sh 'docker run -d -p 8080:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0 '
                 }
              }
            }
