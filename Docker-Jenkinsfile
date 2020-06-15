@@ -13,12 +13,18 @@ pipeline {
    stages {
           stage('PIPELINE-START') {
                steps {
-                  echo 'PIPELINE STARTED'
-                  //sh label: '', script: 'echo PIPELINE STARTED'
+                       echo 'PIPELINE STARTED'
+                       //sh label: '', script: 'echo PIPELINE STARTED'
              }
           }
         // stage('GIT-Checkout') {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
+      
+         stage('Maven Build') {
+            steps {
+                    sh 'mvn clean install package'
+            }
+         } // Maven-Build
    }
 }
