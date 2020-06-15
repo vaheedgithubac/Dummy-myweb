@@ -11,7 +11,7 @@ pipeline {
         steps {
            def mvnHome=tool name: 'Maven-363', type: 'maven'
            def mvnCmd="${mvnHome}/bin"
-           sh label: '', script: 'mvnCmd clean install package'
+           sh label: '', script: '${mvnCmd} clean install package'
         } //Maven Build
      }
  }
