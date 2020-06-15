@@ -9,8 +9,9 @@ pipeline {
     
      stage('Maven Build') {
         steps {
-           tool name: 'Maven-363', type: 'maven'
-           sh label: '', script: 'mvn clean install package'
+           def mvnHome=tool name: 'Maven-363', type: 'maven'
+           def mvnCmd="${mvnHome}/bin"
+           sh label: '', script: 'mvnCmd clean install package'
         } //Maven Build
      }
  }
