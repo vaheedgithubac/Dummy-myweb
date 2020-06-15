@@ -1,4 +1,5 @@
-def mvnHome mvnCmd
+def mvnHome 
+def mvnCmd
 pipeline {
   agent any
   options{
