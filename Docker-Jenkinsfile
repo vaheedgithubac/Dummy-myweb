@@ -37,7 +37,24 @@ pipeline {
          
          stage('Build Docker Image') {
             steps {
+                  //sh '''
+                       //docker stop valaxy_demo;
+                       //docker rm -f valaxy_demo;
+                       //docker image rm -f valaxy_demo;
+                     //'''
                   sh 'docker build -t vaheeddockerhub/my-app:1.0.0 .'
+            }
+         }
+         
+         
+         stage('Push Docker Image to Docker Hub') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'DockerHub-Creds', 
+                                                    passwordVariable: 'DOCKERHUB-PASSWORD', 
+                                                    usernameVariable: 'DOCKERHUB-USERNAME')]) {
+                   sh 'docker login -u ${DOCKERHUB-USERNAME} -p ${DOCKERHUB-PASSWORD}'
+                  }
+                  sh 'docker push vaheeddockerhub/my-app:1.0.0 .'
             }
          }
    }
