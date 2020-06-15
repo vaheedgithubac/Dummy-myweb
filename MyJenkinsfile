@@ -46,10 +46,13 @@ pipeline {
        } // Deploy-Dev
      
  }
-}
+
 
 post {
    always {
-        cleanWs()
+        //cleanWs()
+        deleteDir()
    }
+}
+
 }
