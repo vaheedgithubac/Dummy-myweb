@@ -59,7 +59,7 @@ pipeline {
            
            stage('Run container on DEV-Server') {
                steps{
-               
+                  script {
                   def stopCont='docker stop my-app-cont'
                   def delCont='sudo docker rm -f my-app-cont'
                   def delImg='sudo docker image rm -f vaheeddockerhub/my-app:1.0.0'
@@ -72,7 +72,7 @@ pipeline {
                              ssh ec2-user@172.31.36.253 ${delImg}
                              ssh sudo docker image rm -f vaheeddockerhub/my-app:1.0.0;
                        """
-                      
+                      }
                 }
              }
            }
