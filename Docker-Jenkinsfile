@@ -11,8 +11,8 @@ pipeline {
    }
    
    stages {
-        stage('GIT-Checkout') {
-             git 'https://github.com/vaheedgithubac/Dummy-myweb'
-        }
+        // stage('GIT-Checkout') {
+            // git 'https://github.com/vaheedgithubac/Dummy-myweb'
+      //  }
    }
 }
