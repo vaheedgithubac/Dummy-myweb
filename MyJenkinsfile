@@ -26,6 +26,7 @@ pipeline {
           // }
            //mvnCmd="${mvnHome}/bin/mvn"
            sh "${mvnCmd} clean install package"
+           sh "mv target/*.war target/myweb.war"
         } //Maven Build
      }
  }
