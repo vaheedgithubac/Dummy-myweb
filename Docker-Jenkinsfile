@@ -21,9 +21,9 @@ pipeline {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
       
-         dir('') {
-                    deleteDir()
-            }
+         //dir('') {
+                    //deleteDir()
+           // }
             
             
          stage('Maven Build') {
@@ -33,4 +33,19 @@ pipeline {
             }
          } // Maven-Build
    }
+   
+   post {
+    always {
+
+    }
+    success{
+
+    }
+    failure {
+
+    }
+    cleanup{
+        deleteDir()
+    }
+  }
 }
