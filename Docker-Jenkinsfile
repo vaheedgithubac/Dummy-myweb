@@ -63,7 +63,7 @@ pipeline {
                   def stopCont='sudo docker stop my-app-cont'
                   def delCont='sudo docker rm -f my-app-cont'
                   def delImg='sudo docker image rm -f vaheeddockerhub/my-app:1.0.0'
-                  def creCont='sudo docker run -d -p 8080:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0'
+                  def creCont='sudo docker run -d -p 8090:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0'
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
