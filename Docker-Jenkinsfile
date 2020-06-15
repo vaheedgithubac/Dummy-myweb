@@ -21,9 +21,14 @@ pipeline {
             // git 'https://github.com/vaheedgithubac/Dummy-myweb'
       //  }
       
+         dir('directoryToDelete') {
+                    deleteDir()
+            }
+            
+            
          stage('Maven Build') {
             steps {
-                    cleanWS()
+                    //cleanWS()
                     sh 'mvn clean install package'
             }
          } // Maven-Build
