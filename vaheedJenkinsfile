@@ -29,19 +29,20 @@ pipeline {
             
          stage('Maven Build') {
             steps {
-                    //cleanWS()
+                    //cleanWs()
+                    
                     sh 'mvn clean install package'
                     
-                    writeFile file: 'dockerscript', text: '''
+                    //writeFile file: 'dockerscript', text: '''
                     
-                    #!/bin/bash
+                   // #!/bin/bash
 
-                    sudo docker stop my-app-cont || true
-                    sudo docker rm -f my-app-cont || true
-                    sudo docker image rm -f vaheeddockerhub/my-app:1.0.0 || true
-                    sudo docker run -d -p 8090:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0
+                    //sudo docker stop my-app-cont || true
+                    //sudo docker rm -f my-app-cont || true
+                    //sudo docker image rm -f vaheeddockerhub/my-app:1.0.0 || true
+                    //sudo docker run -d -p 8090:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0
                     
-                    '''
+                    //'''
             }
          } // Maven-Build
          
@@ -74,8 +75,8 @@ pipeline {
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
-                             scp -o StrictHostKeyChecking=no /opt/docker-script.sh ec2-user@172.31.36.253:~/
-                             ssh ec2-user@172.31.36.253 ~/docker-script.sh
+                             scp -o StrictHostKeyChecking=no /opt/docker-script.sh ec2-user@172.31.36.253:/home/ec2-user
+                             ssh ec2-user@172.31.36.253 /home/ec2-user/docker-script.sh
                              
                        """
                       }
