@@ -1,0 +1,90 @@
+pipeline {
+   agent any
+   
+   options {
+        timestamps()
+        timeout(time: 1, unit: 'HOURS')
+   }
+   
+   tools {
+         maven 'Maven-363'
+   }
+   
+   stages {
+          stage('PIPELINE-START') {
+               steps {
+                       echo 'PIPELINE STARTED'
+                       //sh label: '', script: 'echo PIPELINE STARTED'
+             }
+          }
+        
+                 
+            
+         stage('Maven Build') {
+            steps {
+                    cleanWs()
+                    
+                    sh 'mvn clean install package'
+                    
+                                }
+         } // Maven-Build
+         
+         
+         stage('Build Docker Image') {
+            steps {
+                  
+                  sh 'docker build -t vaheeddockerhub/my-app:1.0.0 .'
+            }
+         }
+         
+         
+         stage('Push Docker Image to Docker Hub') {
+            steps {
+              withCredentials([usernamePassword(credentialsId: 'DockerHub-Creds', 
+                                                passwordVariable: 'DOCKERHUBPWD', 
+                                                usernameVariable: 'DOCKERHUBUNAME')]) {
+    
+                    sh "docker login -u ${DOCKERHUBUNAME} -p ${DOCKERHUBPWD}"
+    
+                    }
+                     sh 'docker push vaheeddockerhub/my-app:1.0.0'
+                }
+           } // stage
+           
+           
+           stage('Run container on DEV-Server') {
+               steps{
+                  
+                  sshagent(['Tomcat-Server-Creds']) {
+                  
+                       sh """
+                             scp -o StrictHostKeyChecking=no /opt/docker-script.sh ec2-user@172.31.36.253:/home/ec2-user
+                             
+                             ssh ec2-user@172.31.36.253 sudo mv /home/ec2-user/docker-script.sh /opt
+                             ssh ec2-user@172.31.36.253 sudo /opt/docker-script.sh
+                             
+                             //ssh ec2-user@172.31.36.253 /home/ec2-user/docker-script.sh
+                             
+                       """
+                      }
+                }
+             }
+          
+         
+   }
+   
+   //post {
+    //always {
+
+    //}
+    //success{
+
+    //}
+    //failure {
+
+   // }
+    //cleanup{
+        //deleteDir()
+    //}
+  //}
+}
