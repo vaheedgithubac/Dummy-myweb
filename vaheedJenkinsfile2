@@ -18,7 +18,12 @@ pipeline {
              }
           }
         
-                 
+                 stage('SCM Checkout') {
+                   steps {
+                       git 'https://github.com/vaheedgithubac/Dummy-myweb'
+                      } 
+                  } // SCM Checkout
+                  
             
          stage('Maven Build') {
             steps {
