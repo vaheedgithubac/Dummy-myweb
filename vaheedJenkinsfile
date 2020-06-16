@@ -70,12 +70,12 @@ pipeline {
            
            stage('Run container on DEV-Server') {
                steps{
-                  
+                  sh 'chmod +x dockerscript'
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
-                             scp -o StrictHostKeyChecking=no /var/lib/jenkins/docker-script1.sh ec2-user@172.31.36.253:/opt
-                             ssh ec2-user@172.31.36.253 /var/lib/jenkins/docker-script1.sh
+                             scp -o StrictHostKeyChecking=no dockerscript ec2-user@172.31.36.253:/opt/dockerscript.sh
+                             ssh ec2-user@172.31.36.253 /opt/dockerscript.sh
                              
                        """
                       }
