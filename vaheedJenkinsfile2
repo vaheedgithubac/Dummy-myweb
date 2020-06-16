@@ -22,8 +22,8 @@ pipeline {
             
          stage('Maven Build') {
             steps {
-                    cleanWs()
-                    
+                    //cleanWs()
+                    deleteDir()
                     sh 'mvn clean install package'
                     
                                 }
