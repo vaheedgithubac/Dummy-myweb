@@ -71,14 +71,14 @@ pipeline {
            
            stage('Run container on DEV-Server') {
                steps{
-                  // //sh 'chmod +x dockerscript'
+                  // sh 'chmod +x dockerscript'
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
                              scp -o StrictHostKeyChecking=no /opt/docker-script.sh ec2-user@172.31.36.253:/home/ec2-user
-                             ssh ec2-user@172.31.36.253 sudo mv /home/ec2-user/docker-script.sh /opt
-                             ssh ec2-user@172.31.36.253 sudo /opt/docker-script.sh
-                             //ssh ec2-user@172.31.36.253 /home/ec2-user/docker-script.sh
+                             //ssh ec2-user@172.31.36.253 sudo mv /home/ec2-user/docker-script.sh /opt
+                             //ssh ec2-user@172.31.36.253 sudo /opt/docker-script.sh
+                             ssh ec2-user@172.31.36.253 /home/ec2-user/docker-script.sh
                              
                        """
                       }
