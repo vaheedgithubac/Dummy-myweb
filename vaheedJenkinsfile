@@ -1,0 +1,96 @@
+pipeline {
+   agent any
+   
+   options {
+        timestamps()
+        timeout(time: 1, unit: 'HOURS')
+   }
+   
+   tools {
+         maven 'Maven-363'
+   }
+   
+   stages {
+          stage('PIPELINE-START') {
+               steps {
+                       echo 'PIPELINE STARTED'
+                       //sh label: '', script: 'echo PIPELINE STARTED'
+             }
+          }
+        
+        // stage('GIT-Checkout') {
+            // git 'https://github.com/vaheedgithubac/Dummy-myweb'
+      //  }
+      
+         //dir('') {
+                    //deleteDir()
+           // }
+            
+            
+         stage('Maven Build') {
+            steps {
+                    //cleanWS()
+                    sh 'mvn clean install package'
+            }
+         } // Maven-Build
+         
+         
+         stage('Build Docker Image') {
+            steps {
+                  
+                  sh 'docker build -t vaheeddockerhub/my-app:1.0.0 .'
+            }
+         }
+         
+         
+         stage('Push Docker Image to Docker Hub') {
+            steps {
+              withCredentials([usernamePassword(credentialsId: 'DockerHub-Creds', 
+                                                passwordVariable: 'DOCKERHUBPWD', 
+                                                usernameVariable: 'DOCKERHUBUNAME')]) {
+    
+                    sh "docker login -u ${DOCKERHUBUNAME} -p ${DOCKERHUBPWD}"
+    
+                    }
+                     sh 'docker push vaheeddockerhub/my-app:1.0.0'
+                }
+           } // stage
+           
+           
+           stage('Run container on DEV-Server') {
+               steps{
+                  script {
+                  def stopCont='sudo docker stop my-app-cont'
+                  def delCont='sudo docker rm -f my-app-cont'
+                  def delImg='sudo docker image rm -f vaheeddockerhub/my-app:1.0.0'
+                  def creCont='sudo docker run -d -p 8090:8080 --name my-app-cont vaheeddockerhub/my-app:1.0.0'
+                  sshagent(['Tomcat-Server-Creds']) {
+                  
+                       sh """
+                             ssh -o StrictHostKeyChecking=no ec2-user@172.31.36.253 ${stopCont} || true
+                             ssh ec2-user@172.31.36.253 ${delCont} || true
+                             ssh ec2-user@172.31.36.253 ${delImg} || true
+                             ssh ec2-user@172.31.36.253 ${creCont}
+                       """
+                      }
+                }
+             }
+           }
+         
+   }
+   
+   //post {
+    //always {
+
+    //}
+    //success{
+
+    //}
+    //failure {
+
+   // }
+    //cleanup{
+        //deleteDir()
+    //}
+  //}
+}
