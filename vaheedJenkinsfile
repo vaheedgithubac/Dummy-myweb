@@ -71,7 +71,7 @@ pipeline {
            
            stage('Run container on DEV-Server') {
                steps{
-                  //sh 'chmod +x dockerscript'
+                  // //sh 'chmod +x dockerscript'
                   sshagent(['Tomcat-Server-Creds']) {
                   
                        sh """
